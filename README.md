@@ -17,6 +17,14 @@ graph init \
 ```
 
 ```
+graph init \
+  --from-contract 0xc49e69d88983F466014635DF251986770A031f2b \
+  [--network Matic ] \
+  [--abi abis/cER20.json] \
+  steven4354/metalend
+```
+
+```
 "Contracts": {
         "CompComptroller": "0x7B16d59332814d8c283cE42F5dAbb05CCEc068a5",
         "AppraisalOracle": "0x1a3942cFBA4c422247408e105C3295E9bD35500C",
@@ -47,3 +55,7 @@ cargo run -p graph-node --release -- \
   --postgres-url postgresql://steven:steven@localhost:5432/graph-node \
   --ethereum-rpc matic:https://polygon-mainnet.g.alchemy.com/v2/ZKBkEWga1FTQM9FtWVyYyoLiWk1Mv3RH \
   --ipfs 127.0.0.1:5001
+
+```
+yarn 
+```
