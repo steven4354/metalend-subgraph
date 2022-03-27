@@ -1,0 +1,1831 @@
+[
+    {
+        "inputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "constructor",
+        "signature": "constructor"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "action",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "bool",
+                "name": "pauseState",
+                "type": "bool"
+            }
+        ],
+        "name": "ActionPaused",
+        "type": "event",
+        "signature": "0xef159d9a32b2472e32b098f954f3ce62d232939f1c207070b584df1814de2de0"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "cToken",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "action",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "bool",
+                "name": "pauseState",
+                "type": "bool"
+            }
+        ],
+        "name": "ActionPaused",
+        "type": "event",
+        "signature": "0x71aec636243f9709bb0007ae15e9afb8150ab01716d75fd7573be5cc096e03b0"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "error",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "info",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "detail",
+                "type": "uint256"
+            }
+        ],
+        "name": "Failure",
+        "type": "event",
+        "signature": "0x45b96fe442630264581b197e84bbada861235052c5a1aadfff9ea4e40a969aa0"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "cToken",
+                "type": "address"
+            }
+        ],
+        "name": "MarketListed",
+        "type": "event",
+        "signature": "0xcf583bb0c569eb967f806b11601c4cb93c10310485c67add5f8362c2f212321f"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "contract CTokenInterface",
+                "name": "cToken",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "newBorrowCap",
+                "type": "uint256"
+            }
+        ],
+        "name": "NewBorrowCap",
+        "type": "event",
+        "signature": "0x6f1951b2aad10f3fc81b86d91105b413a5b3f847a34bbc5ce1904201b14438f6"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "oldBorrowCapGuardian",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "newBorrowCapGuardian",
+                "type": "address"
+            }
+        ],
+        "name": "NewBorrowCapGuardian",
+        "type": "event",
+        "signature": "0xeda98690e518e9a05f8ec6837663e188211b2da8f4906648b323f2c1d4434e29"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "oldCloseFactorMantissa",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "newCloseFactorMantissa",
+                "type": "uint256"
+            }
+        ],
+        "name": "NewCloseFactor",
+        "type": "event",
+        "signature": "0x3b9670cf975d26958e754b57098eaa2ac914d8d2a31b83257997b9f346110fd9"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "cToken",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "oldCollateralFactorMantissa",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "newCollateralFactorMantissa",
+                "type": "uint256"
+            }
+        ],
+        "name": "NewCollateralFactor",
+        "type": "event",
+        "signature": "0x70483e6592cd5182d45ac970e05bc62cdcc90e9d8ef2c2dbe686cf383bcd7fc5"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "oldLiquidationDiscountMantissa",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "newLiquidationDiscountMantissa",
+                "type": "uint256"
+            }
+        ],
+        "name": "NewLiquidationDiscount",
+        "type": "event",
+        "signature": "0xb23dd0d5fc6caa89ff2ca08365d672616c2fd6b013a54d1daac3718f4229b770"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "oldLiquidationIncentiveMantissa",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "newLiquidationIncentiveMantissa",
+                "type": "uint256"
+            }
+        ],
+        "name": "NewLiquidationIncentive",
+        "type": "event",
+        "signature": "0xaeba5a6c40a8ac138134bff1aaa65debf25971188a58804bad717f82f0ec1316"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "oldPauseGuardian",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "newPauseGuardian",
+                "type": "address"
+            }
+        ],
+        "name": "NewPauseGuardian",
+        "type": "event",
+        "signature": "0x0613b6ee6a04f0d09f390e4d9318894b9f6ac7fd83897cd8d18896ba579c401e"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "contract PriceOracle",
+                "name": "oldPriceOracle",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "contract PriceOracle",
+                "name": "newPriceOracle",
+                "type": "address"
+            }
+        ],
+        "name": "NewPriceOracle",
+        "type": "event",
+        "signature": "0xd52b2b9b7e9ee655fcb95d2e5b9e0c9f69e7ef2b8e9d2d0ea78402d576d22e22"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "contract Unitroller",
+                "name": "unitroller",
+                "type": "address"
+            }
+        ],
+        "name": "_become",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x1d504dc6"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "newBorrowCapGuardian",
+                "type": "address"
+            }
+        ],
+        "name": "_setBorrowCapGuardian",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x391957d7"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "cToken",
+                "type": "address"
+            },
+            {
+                "internalType": "bool",
+                "name": "state",
+                "type": "bool"
+            }
+        ],
+        "name": "_setBorrowPaused",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x18c882a5"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "newCloseFactorMantissa",
+                "type": "uint256"
+            }
+        ],
+        "name": "_setCloseFactor",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x317b0b77"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "cToken",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "newCollateralFactorMantissa",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "isErc721",
+                "type": "bool"
+            }
+        ],
+        "name": "_setCollateralFactor",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x6d142399"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "contract CompComptrollerInterface",
+                "name": "newCompComptroller",
+                "type": "address"
+            }
+        ],
+        "name": "_setCompComptroller",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0xd326a039"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "newLiquidationDiscountMantissa",
+                "type": "uint256"
+            }
+        ],
+        "name": "_setLiquidationDiscount",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x0a4a19a9"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "newLiquidationIncentiveMantissa",
+                "type": "uint256"
+            }
+        ],
+        "name": "_setLiquidationIncentive",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x4fd42e17"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "contract LiquidityAssessorInterface",
+                "name": "newLiquidityAssessor",
+                "type": "address"
+            }
+        ],
+        "name": "_setLiquidityAssessor",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x4bdb9339"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "contract CTokenInterface[]",
+                "name": "cTokens",
+                "type": "address[]"
+            },
+            {
+                "internalType": "uint256[]",
+                "name": "newBorrowCaps",
+                "type": "uint256[]"
+            }
+        ],
+        "name": "_setMarketBorrowCaps",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x607ef6c1"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "cToken",
+                "type": "address"
+            },
+            {
+                "internalType": "bool",
+                "name": "state",
+                "type": "bool"
+            }
+        ],
+        "name": "_setMintPaused",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x3bcf7ec1"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "newPauseGuardian",
+                "type": "address"
+            }
+        ],
+        "name": "_setPauseGuardian",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x5f5af1aa"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "contract PriceOracle",
+                "name": "newOracle",
+                "type": "address"
+            }
+        ],
+        "name": "_setPriceOracle",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x55ee1fe1"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "bool",
+                "name": "state",
+                "type": "bool"
+            }
+        ],
+        "name": "_setSeizePaused",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x2d70db78"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "bool",
+                "name": "state",
+                "type": "bool"
+            }
+        ],
+        "name": "_setTransferPaused",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x8ebf6364"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "cToken",
+                "type": "address"
+            },
+            {
+                "internalType": "bool",
+                "name": "isErc721",
+                "type": "bool"
+            }
+        ],
+        "name": "_supportMarket",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0xca7d5a15"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "admin",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0xf851a440"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "allErc721Markets",
+        "outputs": [
+            {
+                "internalType": "contract CErc721Interface",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0xa4b9fcf9"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "allMarkets",
+        "outputs": [
+            {
+                "internalType": "contract CTokenInterface",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x52d84d1e"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "appraisalOracle",
+        "outputs": [
+            {
+                "internalType": "contract AppraisalOracleInterface",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x6bf7d2a9"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "cToken",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "borrower",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "borrowAmount",
+                "type": "uint256"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "address[]",
+                        "name": "appraisalTokens",
+                        "type": "address[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "appraisalLengths",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "appraisalTokenIds",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "appraisalValues",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "appraisalGoodUntil",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bytes",
+                        "name": "signature",
+                        "type": "bytes"
+                    }
+                ],
+                "internalType": "struct AppraisalStruct.Wire",
+                "name": "appraisal",
+                "type": "tuple"
+            }
+        ],
+        "name": "borrowAllowed",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x4c1f5377"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "borrowCapGuardian",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x21af4569"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "borrowCaps",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x4a584432"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "borrowGuardianPaused",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x6d154ea5"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "closeFactorMantissa",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0xe8755446"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "compComptroller",
+        "outputs": [
+            {
+                "internalType": "contract CompComptrollerInterface",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0xf0159120"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "comptrollerImplementation",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0xbb82aa5e"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "getAllErc721Markets",
+        "outputs": [
+            {
+                "internalType": "contract CErc721Interface[]",
+                "name": "",
+                "type": "address[]"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x46ce837c"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "getAllMarkets",
+        "outputs": [
+            {
+                "internalType": "contract CTokenInterface[]",
+                "name": "",
+                "type": "address[]"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0xb0772d0b"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "getBlockNumber",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x42cbb15c"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "cToken",
+                "type": "address"
+            }
+        ],
+        "name": "getBorrowGuardianPaused",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x975ed8dc"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "getCloseFactorMantissa",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x182c09a6"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "asset",
+                "type": "address"
+            }
+        ],
+        "name": "getCollateralFactorMantissa",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0xa38ab7c4"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "getLiquidationDiscountMantissa",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x786be89e"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "getLiquidationIncentiveMantissa",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x4d32d828"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "getOracle",
+        "outputs": [
+            {
+                "internalType": "contract PriceOracle",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x833b1fce"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "isComptroller",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x007e3dd2"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "cToken",
+                "type": "address"
+            }
+        ],
+        "name": "isMarketListed",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x3d98a1e5"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "cTokenBorrowed",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "cTokenCollateral",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "borrower",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "repayAmount",
+                "type": "uint256"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "address[]",
+                        "name": "appraisalTokens",
+                        "type": "address[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "appraisalLengths",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "appraisalTokenIds",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "appraisalValues",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "appraisalGoodUntil",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bytes",
+                        "name": "signature",
+                        "type": "bytes"
+                    }
+                ],
+                "internalType": "struct AppraisalStruct.Wire",
+                "name": "appraisal",
+                "type": "tuple"
+            }
+        ],
+        "name": "liquidateBorrowAllowed",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0xa8e8b62c"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "cTokenBorrowed",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "cErc721TokenCollateral",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "borrower",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "repayAmount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256[]",
+                "name": "tokenIds",
+                "type": "uint256[]"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "address[]",
+                        "name": "appraisalTokens",
+                        "type": "address[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "appraisalLengths",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "appraisalTokenIds",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "appraisalValues",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "appraisalGoodUntil",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bytes",
+                        "name": "signature",
+                        "type": "bytes"
+                    }
+                ],
+                "internalType": "struct AppraisalStruct.Wire",
+                "name": "appraisal",
+                "type": "tuple"
+            }
+        ],
+        "name": "liquidateBorrowAllowedErc721",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0xa3098300"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "cTokenBorrowed",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "cTokenCollateral",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "actualRepayAmount",
+                "type": "uint256"
+            }
+        ],
+        "name": "liquidateCalculateSeizeTokens",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0xc488847b"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "liquidationDiscountMantissa",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x0a02bf59"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "liquidationIncentiveMantissa",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x4ada90af"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "liquidityAssessor",
+        "outputs": [
+            {
+                "internalType": "contract LiquidityAssessorInterface",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0xa0f50648"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "markets",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "isListed",
+                "type": "bool"
+            },
+            {
+                "internalType": "uint256",
+                "name": "collateralFactorMantissa",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x8e8f294b"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "cToken",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "minter",
+                "type": "address"
+            }
+        ],
+        "name": "mintAllowed",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0xf196980a"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "cErc721Token",
+                "type": "address"
+            }
+        ],
+        "name": "mintAllowedErc721",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x3b6c7a4d"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "mintGuardianPaused",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x731f0c2b"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "oracle",
+        "outputs": [
+            {
+                "internalType": "contract PriceOracle",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x7dc0d1d0"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "pauseGuardian",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x24a3d622"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "pendingAdmin",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x26782247"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "pendingComptrollerImplementation",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0xdcfbc0c7"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "cToken",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "redeemer",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "redeemTokens",
+                "type": "uint256"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "address[]",
+                        "name": "appraisalTokens",
+                        "type": "address[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "appraisalLengths",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "appraisalTokenIds",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "appraisalValues",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "appraisalGoodUntil",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bytes",
+                        "name": "signature",
+                        "type": "bytes"
+                    }
+                ],
+                "internalType": "struct AppraisalStruct.Wire",
+                "name": "appraisal",
+                "type": "tuple"
+            }
+        ],
+        "name": "redeemAllowed",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x65689fbf"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "cErc721Token",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "redeemer",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256[]",
+                "name": "tokenIds",
+                "type": "uint256[]"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "address[]",
+                        "name": "appraisalTokens",
+                        "type": "address[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "appraisalLengths",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "appraisalTokenIds",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "appraisalValues",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "appraisalGoodUntil",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bytes",
+                        "name": "signature",
+                        "type": "bytes"
+                    }
+                ],
+                "internalType": "struct AppraisalStruct.Wire",
+                "name": "appraisal",
+                "type": "tuple"
+            }
+        ],
+        "name": "redeemAllowedErc721",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x41f3051b"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "redeemAmount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "redeemTokens",
+                "type": "uint256"
+            }
+        ],
+        "name": "redeemVerify",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0xcc80e51a"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "cToken",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "payer",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "borrower",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "repayAmount",
+                "type": "uint256"
+            }
+        ],
+        "name": "repayBorrowAllowed",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x24008a62"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "cTokenCollateral",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "cTokenBorrowed",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "liquidator",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "borrower",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "seizeTokens",
+                "type": "uint256"
+            }
+        ],
+        "name": "seizeAllowed",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0xd02f7351"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "cErc721TokenCollateral",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "cTokenBorrowed",
+                "type": "address"
+            }
+        ],
+        "name": "seizeAllowedErc721",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x7f6806d9"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "seizeGuardianPaused",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0xac0b0bb7"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "cToken",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "src",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "dst",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "transferTokens",
+                "type": "uint256"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "address[]",
+                        "name": "appraisalTokens",
+                        "type": "address[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "appraisalLengths",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "appraisalTokenIds",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "appraisalValues",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "appraisalGoodUntil",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bytes",
+                        "name": "signature",
+                        "type": "bytes"
+                    }
+                ],
+                "internalType": "struct AppraisalStruct.Wire",
+                "name": "appraisal",
+                "type": "tuple"
+            }
+        ],
+        "name": "transferAllowed",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x6ba1d7d7"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "transferGuardianPaused",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x87f76303"
+    }
+]
