@@ -1,3 +1,5 @@
+https://github.com/graphprotocol/graph-node
+
 ```
 graph init \
   --from-contract 0x1bFAA59c95084b5465C22b2Da64c2e236CdbBaaC \
@@ -8,9 +10,9 @@ graph init \
 
 ```
 graph init \
-  --from-contract 0x1bFAA59c95084b5465C22b2Da64c2e236CdbBaaC \
+  --from-contract 0x764f0f637a87bB9109335e0911a790e1a541A4bf \
   [--network Matic ] \
-  [--abi abis/Comptroller.json] \
+  [--abi abis/cAXIE.json] \
   steven4354/metalend
 ```
 
@@ -33,3 +35,15 @@ graph init \
         "InterestRateModel": "0xd5f26EE61C5e5fc340ba2cAd260784cfB110618d"
     }
 ```
+
+cargo run -p graph-node --release -- \
+  --postgres-url postgresql://steven:steven@localhost:5432/graph-node \
+  --ethereum-rpc matic:[CAPABILITIES]:URL \
+  --ipfs 127.0.0.1:5001
+
+https://polygon-mainnet.g.alchemy.com/v2/ZKBkEWga1FTQM9FtWVyYyoLiWk1Mv3RH
+
+cargo run -p graph-node --release -- \
+  --postgres-url postgresql://steven:steven@localhost:5432/graph-node \
+  --ethereum-rpc matic:https://polygon-mainnet.g.alchemy.com/v2/ZKBkEWga1FTQM9FtWVyYyoLiWk1Mv3RH \
+  --ipfs 127.0.0.1:5001
