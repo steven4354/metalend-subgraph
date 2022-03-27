@@ -18,3 +18,58 @@ type Comptroller @entity {
     "Max assets a single user can enter"
     maxAssets: BigInt
 }
+
+# Market inforamtion for a CToken
+type Market @entity { # TODO rename to CToken, not market AND ALL OTHERS
+    #Fields that match compounds API
+    "Yearly borrow rate. With 2102400 blocks per year"
+    borrowRate: BigDecimal!
+    "The cToken contract balance of ERC20 or ETH"
+    cash: BigDecimal!
+    "Collateral factor determining how much one can borrow"
+    collateralFactor: BigDecimal!
+    "Exchange rate of tokens / cTokens"
+    exchangeRate:  BigDecimal!
+    "Address of the interest rate model"
+    interestRateModelAddress: Bytes!
+    "Name of the cToken"
+    name: String!
+    "Number of borrowers active in the market"
+    numberOfBorrowers: Int!
+    "Number of suppliers active in the market"
+    numberOfSuppliers: Int!
+    "Reserves stored in the contract"
+    reserves: BigDecimal!
+    "Yearly supply rate. With 2104400 blocks per year"
+    supplyRate: BigDecimal!
+    "CToken symbol"
+    symbol: String!
+    "CToken address"
+    id: ID!
+    "Borrows in the market"
+    totalBorrows: BigDecimal!
+    "CToken supply. CTokens have 8 decimals"
+    totalSupply: BigDecimal!
+    "Underlying token address"
+    underlyingAddress: Bytes!
+    "Underlying token name"
+    underlyingName: String!
+    "Underlying price of token in ETH (ex. 0.007 DAI)"
+    underlyingPrice: BigDecimal!
+    "Underlying token symbol"
+    underlyingSymbol: String!
+
+    # Fields that are not in compounds api
+    "Block the market is updated to"
+    accrualBlockNumber: Int!
+    "Timestamp the market was most recently updated"
+    blockTimestamp: Int!
+    "The history of the markets borrow index return (Think S&P 500)"
+    borrowIndex: BigDecimal!
+    "The factor determining interest that goes to reserves"
+    reserveFactor: BigInt!
+    "Underlying token price in USD"
+    underlyingPriceUSD: BigDecimal!
+    "Underlying token decimal length"
+    underlyingDecimals: Int!
+}

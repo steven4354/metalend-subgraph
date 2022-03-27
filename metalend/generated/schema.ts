@@ -73,3 +73,366 @@ export class ExampleEntity extends Entity {
     this.set("info", Value.fromBigInt(value));
   }
 }
+
+export class Comptroller extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Comptroller entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Comptroller must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("Comptroller", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Comptroller | null {
+    return changetype<Comptroller | null>(store.get("Comptroller", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get priceOracle(): Bytes | null {
+    let value = this.get("priceOracle");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set priceOracle(value: Bytes | null) {
+    if (!value) {
+      this.unset("priceOracle");
+    } else {
+      this.set("priceOracle", Value.fromBytes(<Bytes>value));
+    }
+  }
+
+  get closeFactor(): BigInt | null {
+    let value = this.get("closeFactor");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set closeFactor(value: BigInt | null) {
+    if (!value) {
+      this.unset("closeFactor");
+    } else {
+      this.set("closeFactor", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get liquidationIncentive(): BigInt | null {
+    let value = this.get("liquidationIncentive");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set liquidationIncentive(value: BigInt | null) {
+    if (!value) {
+      this.unset("liquidationIncentive");
+    } else {
+      this.set("liquidationIncentive", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get maxAssets(): BigInt | null {
+    let value = this.get("maxAssets");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set maxAssets(value: BigInt | null) {
+    if (!value) {
+      this.unset("maxAssets");
+    } else {
+      this.set("maxAssets", Value.fromBigInt(<BigInt>value));
+    }
+  }
+}
+
+export class Market extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("borrowRate", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("cash", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("collateralFactor", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("exchangeRate", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("interestRateModelAddress", Value.fromBytes(Bytes.empty()));
+    this.set("name", Value.fromString(""));
+    this.set("numberOfBorrowers", Value.fromI32(0));
+    this.set("numberOfSuppliers", Value.fromI32(0));
+    this.set("reserves", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("supplyRate", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("symbol", Value.fromString(""));
+    this.set("totalBorrows", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("totalSupply", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("underlyingAddress", Value.fromBytes(Bytes.empty()));
+    this.set("underlyingName", Value.fromString(""));
+    this.set("underlyingPrice", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("underlyingSymbol", Value.fromString(""));
+    this.set("accrualBlockNumber", Value.fromI32(0));
+    this.set("blockTimestamp", Value.fromI32(0));
+    this.set("borrowIndex", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("reserveFactor", Value.fromBigInt(BigInt.zero()));
+    this.set("underlyingPriceUSD", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("underlyingDecimals", Value.fromI32(0));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Market entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Market must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("Market", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Market | null {
+    return changetype<Market | null>(store.get("Market", id));
+  }
+
+  get borrowRate(): BigDecimal {
+    let value = this.get("borrowRate");
+    return value!.toBigDecimal();
+  }
+
+  set borrowRate(value: BigDecimal) {
+    this.set("borrowRate", Value.fromBigDecimal(value));
+  }
+
+  get cash(): BigDecimal {
+    let value = this.get("cash");
+    return value!.toBigDecimal();
+  }
+
+  set cash(value: BigDecimal) {
+    this.set("cash", Value.fromBigDecimal(value));
+  }
+
+  get collateralFactor(): BigDecimal {
+    let value = this.get("collateralFactor");
+    return value!.toBigDecimal();
+  }
+
+  set collateralFactor(value: BigDecimal) {
+    this.set("collateralFactor", Value.fromBigDecimal(value));
+  }
+
+  get exchangeRate(): BigDecimal {
+    let value = this.get("exchangeRate");
+    return value!.toBigDecimal();
+  }
+
+  set exchangeRate(value: BigDecimal) {
+    this.set("exchangeRate", Value.fromBigDecimal(value));
+  }
+
+  get interestRateModelAddress(): Bytes {
+    let value = this.get("interestRateModelAddress");
+    return value!.toBytes();
+  }
+
+  set interestRateModelAddress(value: Bytes) {
+    this.set("interestRateModelAddress", Value.fromBytes(value));
+  }
+
+  get name(): string {
+    let value = this.get("name");
+    return value!.toString();
+  }
+
+  set name(value: string) {
+    this.set("name", Value.fromString(value));
+  }
+
+  get numberOfBorrowers(): i32 {
+    let value = this.get("numberOfBorrowers");
+    return value!.toI32();
+  }
+
+  set numberOfBorrowers(value: i32) {
+    this.set("numberOfBorrowers", Value.fromI32(value));
+  }
+
+  get numberOfSuppliers(): i32 {
+    let value = this.get("numberOfSuppliers");
+    return value!.toI32();
+  }
+
+  set numberOfSuppliers(value: i32) {
+    this.set("numberOfSuppliers", Value.fromI32(value));
+  }
+
+  get reserves(): BigDecimal {
+    let value = this.get("reserves");
+    return value!.toBigDecimal();
+  }
+
+  set reserves(value: BigDecimal) {
+    this.set("reserves", Value.fromBigDecimal(value));
+  }
+
+  get supplyRate(): BigDecimal {
+    let value = this.get("supplyRate");
+    return value!.toBigDecimal();
+  }
+
+  set supplyRate(value: BigDecimal) {
+    this.set("supplyRate", Value.fromBigDecimal(value));
+  }
+
+  get symbol(): string {
+    let value = this.get("symbol");
+    return value!.toString();
+  }
+
+  set symbol(value: string) {
+    this.set("symbol", Value.fromString(value));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get totalBorrows(): BigDecimal {
+    let value = this.get("totalBorrows");
+    return value!.toBigDecimal();
+  }
+
+  set totalBorrows(value: BigDecimal) {
+    this.set("totalBorrows", Value.fromBigDecimal(value));
+  }
+
+  get totalSupply(): BigDecimal {
+    let value = this.get("totalSupply");
+    return value!.toBigDecimal();
+  }
+
+  set totalSupply(value: BigDecimal) {
+    this.set("totalSupply", Value.fromBigDecimal(value));
+  }
+
+  get underlyingAddress(): Bytes {
+    let value = this.get("underlyingAddress");
+    return value!.toBytes();
+  }
+
+  set underlyingAddress(value: Bytes) {
+    this.set("underlyingAddress", Value.fromBytes(value));
+  }
+
+  get underlyingName(): string {
+    let value = this.get("underlyingName");
+    return value!.toString();
+  }
+
+  set underlyingName(value: string) {
+    this.set("underlyingName", Value.fromString(value));
+  }
+
+  get underlyingPrice(): BigDecimal {
+    let value = this.get("underlyingPrice");
+    return value!.toBigDecimal();
+  }
+
+  set underlyingPrice(value: BigDecimal) {
+    this.set("underlyingPrice", Value.fromBigDecimal(value));
+  }
+
+  get underlyingSymbol(): string {
+    let value = this.get("underlyingSymbol");
+    return value!.toString();
+  }
+
+  set underlyingSymbol(value: string) {
+    this.set("underlyingSymbol", Value.fromString(value));
+  }
+
+  get accrualBlockNumber(): i32 {
+    let value = this.get("accrualBlockNumber");
+    return value!.toI32();
+  }
+
+  set accrualBlockNumber(value: i32) {
+    this.set("accrualBlockNumber", Value.fromI32(value));
+  }
+
+  get blockTimestamp(): i32 {
+    let value = this.get("blockTimestamp");
+    return value!.toI32();
+  }
+
+  set blockTimestamp(value: i32) {
+    this.set("blockTimestamp", Value.fromI32(value));
+  }
+
+  get borrowIndex(): BigDecimal {
+    let value = this.get("borrowIndex");
+    return value!.toBigDecimal();
+  }
+
+  set borrowIndex(value: BigDecimal) {
+    this.set("borrowIndex", Value.fromBigDecimal(value));
+  }
+
+  get reserveFactor(): BigInt {
+    let value = this.get("reserveFactor");
+    return value!.toBigInt();
+  }
+
+  set reserveFactor(value: BigInt) {
+    this.set("reserveFactor", Value.fromBigInt(value));
+  }
+
+  get underlyingPriceUSD(): BigDecimal {
+    let value = this.get("underlyingPriceUSD");
+    return value!.toBigDecimal();
+  }
+
+  set underlyingPriceUSD(value: BigDecimal) {
+    this.set("underlyingPriceUSD", Value.fromBigDecimal(value));
+  }
+
+  get underlyingDecimals(): i32 {
+    let value = this.get("underlyingDecimals");
+    return value!.toI32();
+  }
+
+  set underlyingDecimals(value: i32) {
+    this.set("underlyingDecimals", Value.fromI32(value));
+  }
+}
