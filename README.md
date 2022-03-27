@@ -1,3 +1,5 @@
+subgraph: https://thegraph.com/hosted-service/subgraph/steven4354/metalend?selected=playground
+
 https://github.com/graphprotocol/graph-node
 
 ```
