@@ -44,18 +44,17 @@ graph init \
     }
 ```
 
+example:
+```
 cargo run -p graph-node --release -- \
   --postgres-url postgresql://steven:steven@localhost:5432/graph-node \
   --ethereum-rpc matic:[CAPABILITIES]:URL \
   --ipfs 127.0.0.1:5001
-
-https://polygon-mainnet.g.alchemy.com/v2/ZKBkEWga1FTQM9FtWVyYyoLiWk1Mv3RH
-
-cargo run -p graph-node --release -- \
-  --postgres-url postgresql://steven:steven@localhost:5432/graph-node \
-  --ethereum-rpc matic:https://polygon-mainnet.g.alchemy.com/v2/ZKBkEWga1FTQM9FtWVyYyoLiWk1Mv3RH \
-  --ipfs 127.0.0.1:5001
+```
 
 ```
-yarn 
+cargo run -p graph-node --release -- \
+  --postgres-url postgresql://steven:steven@localhost:5432/graph-node \
+  --ethereum-rpc matic:https://polygon-mainnet.g.alchemy.com/v2/<key-here> \
+  --ipfs 127.0.0.1:5001
 ```
