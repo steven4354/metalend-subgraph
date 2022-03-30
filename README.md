@@ -60,3 +60,8 @@ cargo run -p graph-node --release -- \
   --ethereum-rpc matic:https://polygon-mainnet.g.alchemy.com/v2/<key-here> \
   --ipfs 127.0.0.1:5001
 ```
+
+```
+export ETHEREUM_BLOCK_BATCH_SIZE=100
+export GRAPH_ETHEREUM_MAX_BLOCK_RANGE_SIZE=1000000
+```

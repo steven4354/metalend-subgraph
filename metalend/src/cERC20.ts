@@ -21,11 +21,13 @@ import {
   Transfer
 } from "../generated/cERC20/cERC20"
 import { ExampleEntity, Market } from "../generated/schema"
-import { createMarket } from "./markets"
+import { createMarket, updateMarket } from "./markets"
 
 export function handleNewImplementation(event: NewImplementation): void {}
 
-export function handleAccrueInterest(event: AccrueInterest): void {}
+export function handleAccrueInterest(event: AccrueInterest): void {
+  updateMarket(event.address, event.block.number.toI32(), event.block.timestamp.toI32())
+}
 
 export function handleApproval(event: Approval): void {}
 
@@ -58,7 +60,9 @@ export function handleNewMarketInterestRateModel(
   market.save()
 }
 
-export function handleNewPendingAdmin(event: NewPendingAdmin): void {}
+export function handleNewPendingAdmin(event: NewPendingAdmin): void {
+  
+}
 
 export function handleNewReserveFactor(event: NewReserveFactor): void {}
 
