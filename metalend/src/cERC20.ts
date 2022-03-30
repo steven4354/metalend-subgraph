@@ -1,4 +1,4 @@
-import { BigInt } from "@graphprotocol/graph-ts"
+import { BigInt, log } from "@graphprotocol/graph-ts"
 import {
   cERC20,
   NewImplementation,
@@ -21,6 +21,7 @@ import {
   Transfer
 } from "../generated/cERC20/cERC20"
 import { ExampleEntity, Market } from "../generated/schema"
+import { createMarket } from "./markets"
 
 export function handleNewImplementation(event: NewImplementation): void {}
 
@@ -44,7 +45,18 @@ export function handleNewComptroller(event: NewComptroller): void {}
 
 export function handleNewMarketInterestRateModel(
   event: NewMarketInterestRateModel
-): void {}
+): void {
+  let marketID = event.address.toHex()
+  log.info("marketID: {}", [marketID])
+
+  let market = Market.load(marketID)
+  if (market == null) {
+    market = createMarket(marketID);
+  }
+
+  market.interestRateModelAddress = event.params.newInterestRateModel
+  market.save()
+}
 
 export function handleNewPendingAdmin(event: NewPendingAdmin): void {}
 
