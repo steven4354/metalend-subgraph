@@ -20,7 +20,8 @@ import {
   ReservesReduced,
   Transfer
 } from "../generated/cERC20/cERC20"
-import { ExampleEntity, Market } from "../generated/schema"
+import { Account, ExampleEntity, Market } from "../generated/schema"
+import { createAccount } from "./helpers"
 import { createMarket, updateMarket } from "./markets"
 
 export function handleNewImplementation(event: NewImplementation): void {}
@@ -31,11 +32,38 @@ export function handleAccrueInterest(event: AccrueInterest): void {
 
 export function handleApproval(event: Approval): void {}
 
-export function handleBorrow(event: Borrow): void {}
+export function handleBorrow(event: Borrow): void {
+  let market = Market.load(event.address.toHexString())
+  let accountID = event.params.borrower.toHex()
+
+  // TODO: add rest of compound-v2-subgraph logic here
+  let account = Account.load(accountID)
+  if (account == null) {
+    account = createAccount(accountID)
+  }
+  account.hasBorrowed = true
+  account.save()
+}
 
 export function handleFailure(event: Failure): void {}
 
-export function handleLiquidateBorrow(event: LiquidateBorrow): void {}
+export function handleLiquidateBorrow(event: LiquidateBorrow): void {
+  let liquidatorID = event.params.liquidator.toHex()
+  let liquidator = Account.load(liquidatorID)
+  if (liquidator == null) {
+    liquidator = createAccount(liquidatorID)
+  }
+  liquidator.countLiquidator = liquidator.countLiquidator + 1
+  liquidator.save()
+
+  let borrowerID = event.params.borrower.toHex()
+  let borrower = Account.load(borrowerID)
+  if (borrower == null) {
+    borrower = createAccount(borrowerID)
+  }
+  borrower.countLiquidated = borrower.countLiquidated + 1
+  borrower.save()
+}
 
 export function handleLiquidateBorrow1(event: LiquidateBorrow1): void {}
 
