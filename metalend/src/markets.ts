@@ -66,8 +66,16 @@ export function updateMarket(
         market.blockTimestamp = blockTimestamp
         log.info('market.blockTimestamp: {}', [market.blockTimestamp.toString()])
 
+        log.info('contract.totalBorrows: {}', [contract.totalBorrows().toString()])
         market.totalBorrows = contract
             .totalBorrows()
+            .toBigDecimal()
+            .div(exponentToBigDecimal(market.underlyingDecimals))
+            .truncate(market.underlyingDecimals)
+        log.info('market.totalBorrows: {}', [market.totalBorrows.toString()])
+
+        market.cash = contract
+            .getCash()
             .toBigDecimal()
             .div(exponentToBigDecimal(market.underlyingDecimals))
             .truncate(market.underlyingDecimals)

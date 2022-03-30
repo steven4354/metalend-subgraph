@@ -436,3 +436,257 @@ export class Market extends Entity {
     this.set("underlyingDecimals", Value.fromI32(value));
   }
 }
+
+export class Account extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("countLiquidated", Value.fromI32(0));
+    this.set("countLiquidator", Value.fromI32(0));
+    this.set("hasBorrowed", Value.fromBoolean(false));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Account entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Account must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("Account", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Account | null {
+    return changetype<Account | null>(store.get("Account", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get tokens(): Array<string> {
+    let value = this.get("tokens");
+    return value!.toStringArray();
+  }
+
+  set tokens(value: Array<string>) {
+    this.set("tokens", Value.fromStringArray(value));
+  }
+
+  get countLiquidated(): i32 {
+    let value = this.get("countLiquidated");
+    return value!.toI32();
+  }
+
+  set countLiquidated(value: i32) {
+    this.set("countLiquidated", Value.fromI32(value));
+  }
+
+  get countLiquidator(): i32 {
+    let value = this.get("countLiquidator");
+    return value!.toI32();
+  }
+
+  set countLiquidator(value: i32) {
+    this.set("countLiquidator", Value.fromI32(value));
+  }
+
+  get hasBorrowed(): boolean {
+    let value = this.get("hasBorrowed");
+    return value!.toBoolean();
+  }
+
+  set hasBorrowed(value: boolean) {
+    this.set("hasBorrowed", Value.fromBoolean(value));
+  }
+}
+
+export class AccountCToken extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("market", Value.fromString(""));
+    this.set("symbol", Value.fromString(""));
+    this.set("account", Value.fromString(""));
+    this.set("transactionHashes", Value.fromBytesArray(new Array(0)));
+    this.set("transactionTimes", Value.fromI32Array(new Array(0)));
+    this.set("accrualBlockNumber", Value.fromI32(0));
+    this.set("enteredMarket", Value.fromBoolean(false));
+    this.set("cTokenBalance", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set(
+      "totalUnderlyingSupplied",
+      Value.fromBigDecimal(BigDecimal.zero())
+    );
+    this.set(
+      "totalUnderlyingRedeemed",
+      Value.fromBigDecimal(BigDecimal.zero())
+    );
+    this.set("accountBorrowIndex", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set(
+      "totalUnderlyingBorrowed",
+      Value.fromBigDecimal(BigDecimal.zero())
+    );
+    this.set("totalUnderlyingRepaid", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("storedBorrowBalance", Value.fromBigDecimal(BigDecimal.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save AccountCToken entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type AccountCToken must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("AccountCToken", id.toString(), this);
+    }
+  }
+
+  static load(id: string): AccountCToken | null {
+    return changetype<AccountCToken | null>(store.get("AccountCToken", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get market(): string {
+    let value = this.get("market");
+    return value!.toString();
+  }
+
+  set market(value: string) {
+    this.set("market", Value.fromString(value));
+  }
+
+  get symbol(): string {
+    let value = this.get("symbol");
+    return value!.toString();
+  }
+
+  set symbol(value: string) {
+    this.set("symbol", Value.fromString(value));
+  }
+
+  get account(): string {
+    let value = this.get("account");
+    return value!.toString();
+  }
+
+  set account(value: string) {
+    this.set("account", Value.fromString(value));
+  }
+
+  get transactionHashes(): Array<Bytes> {
+    let value = this.get("transactionHashes");
+    return value!.toBytesArray();
+  }
+
+  set transactionHashes(value: Array<Bytes>) {
+    this.set("transactionHashes", Value.fromBytesArray(value));
+  }
+
+  get transactionTimes(): Array<i32> {
+    let value = this.get("transactionTimes");
+    return value!.toI32Array();
+  }
+
+  set transactionTimes(value: Array<i32>) {
+    this.set("transactionTimes", Value.fromI32Array(value));
+  }
+
+  get accrualBlockNumber(): i32 {
+    let value = this.get("accrualBlockNumber");
+    return value!.toI32();
+  }
+
+  set accrualBlockNumber(value: i32) {
+    this.set("accrualBlockNumber", Value.fromI32(value));
+  }
+
+  get enteredMarket(): boolean {
+    let value = this.get("enteredMarket");
+    return value!.toBoolean();
+  }
+
+  set enteredMarket(value: boolean) {
+    this.set("enteredMarket", Value.fromBoolean(value));
+  }
+
+  get cTokenBalance(): BigDecimal {
+    let value = this.get("cTokenBalance");
+    return value!.toBigDecimal();
+  }
+
+  set cTokenBalance(value: BigDecimal) {
+    this.set("cTokenBalance", Value.fromBigDecimal(value));
+  }
+
+  get totalUnderlyingSupplied(): BigDecimal {
+    let value = this.get("totalUnderlyingSupplied");
+    return value!.toBigDecimal();
+  }
+
+  set totalUnderlyingSupplied(value: BigDecimal) {
+    this.set("totalUnderlyingSupplied", Value.fromBigDecimal(value));
+  }
+
+  get totalUnderlyingRedeemed(): BigDecimal {
+    let value = this.get("totalUnderlyingRedeemed");
+    return value!.toBigDecimal();
+  }
+
+  set totalUnderlyingRedeemed(value: BigDecimal) {
+    this.set("totalUnderlyingRedeemed", Value.fromBigDecimal(value));
+  }
+
+  get accountBorrowIndex(): BigDecimal {
+    let value = this.get("accountBorrowIndex");
+    return value!.toBigDecimal();
+  }
+
+  set accountBorrowIndex(value: BigDecimal) {
+    this.set("accountBorrowIndex", Value.fromBigDecimal(value));
+  }
+
+  get totalUnderlyingBorrowed(): BigDecimal {
+    let value = this.get("totalUnderlyingBorrowed");
+    return value!.toBigDecimal();
+  }
+
+  set totalUnderlyingBorrowed(value: BigDecimal) {
+    this.set("totalUnderlyingBorrowed", Value.fromBigDecimal(value));
+  }
+
+  get totalUnderlyingRepaid(): BigDecimal {
+    let value = this.get("totalUnderlyingRepaid");
+    return value!.toBigDecimal();
+  }
+
+  set totalUnderlyingRepaid(value: BigDecimal) {
+    this.set("totalUnderlyingRepaid", Value.fromBigDecimal(value));
+  }
+
+  get storedBorrowBalance(): BigDecimal {
+    let value = this.get("storedBorrowBalance");
+    return value!.toBigDecimal();
+  }
+
+  set storedBorrowBalance(value: BigDecimal) {
+    this.set("storedBorrowBalance", Value.fromBigDecimal(value));
+  }
+}
