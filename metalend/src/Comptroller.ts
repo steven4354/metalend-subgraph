@@ -1,4 +1,4 @@
-import { BigInt } from "@graphprotocol/graph-ts"
+import { BigInt, log } from "@graphprotocol/graph-ts"
 import {
   Failure,
   NewAdmin,
@@ -17,7 +17,8 @@ import {
   NewPauseGuardian,
   NewPriceOracle
 } from "../generated/Comptroller/Comptroller"
-import { ExampleEntity, Comptroller } from "../generated/schema"
+import { ExampleEntity, Comptroller, Market } from "../generated/schema"
+import { mantissaFactorBD } from "./helpers"
 
 export function handleFailure(event: Failure): void {}
 
@@ -49,7 +50,19 @@ export function handleNewCloseFactor(event: NewCloseFactor): void {
   }
 }
 
-export function handleNewCollateralFactor(event: NewCollateralFactor): void {}
+export function handleNewCollateralFactor(event: NewCollateralFactor): void {
+  let market = Market.load(event.params.cToken.toHexString())
+
+  if (market == null) {
+    log.info("market not found: {} ", [event.params.cToken.toHexString()])
+    return
+  }
+
+  market.collateralFactor = event.params.newCollateralFactorMantissa
+    .toBigDecimal()
+    .div(mantissaFactorBD)
+  market.save()
+}
 
 export function handleNewLiquidationDiscount(
   event: NewLiquidationDiscount
