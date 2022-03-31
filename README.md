@@ -103,3 +103,58 @@ cargo run -p graph-node --release -- \
 export ETHEREUM_BLOCK_BATCH_SIZE=100
 export GRAPH_ETHEREUM_MAX_BLOCK_RANGE_SIZE=1000000
 ```
+
+### Common graphql queries
+
+```
+{
+  accounts(first: 10) {
+    id
+    tokens(first: 5) {
+      id
+      symbol
+    }
+  }
+}
+```
+
+```
+{
+  markets(first: 7) {
+    borrowRate
+    cash
+    collateralFactor
+    exchangeRate
+    interestRateModelAddress
+    name
+    reserves
+    supplyRate
+    symbol
+    id
+    totalBorrows
+    totalSupply
+    underlyingAddress
+    underlyingName
+    underlyingPrice
+    underlyingSymbol
+    reserveFactor
+    underlyingPriceUSD
+  }
+}
+```
+
+```
+{
+  accountCTokens(first:100) {
+    id
+    symbol
+    cTokenBalance
+    accountBorrowIndex
+    totalUnderlyingSupplied
+    totalUnderlyingRedeemed
+    totalUnderlyingBorrowed
+    totalUnderlyingRepaid
+    storedBorrowBalance
+  }
+}
+```
