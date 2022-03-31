@@ -6,9 +6,11 @@ Indexing [Metalend](https://metalend.tech/), the Axie lending protocol, using Gr
 
 ### Running locally
 
-If you'd like to see your changes before deploying to the above subgraph, you can use a local graph node: https://github.com/graphprotocol/graph-node to do so. In #Helpful notes you can see some commands to run the local graph node. Otherwise the README.md within the graph-node repo shows how to set it up.
+If you'd like to see your changes before deploying to the above subgraph, you can clone and run the local [graph-node repo](https://github.com/graphprotocol/graph-node)
 
-After running locally, you should see logs on the graph-node instance, to log items there, below is an example
+In #Helpful notes you can see some commands to run the local graph node. Additionally, the README.md within the [graph-node repo](https://github.com/graphprotocol/graph-node) shows how to set it up to run the code here.
+
+After running locally, you should see logs on the graph-node instance. To log items there, below is an example
 
 ```
 import { log } from '@graphprotocol/graph-ts/index'
