@@ -144,7 +144,70 @@ export function handleNewReserveFactor(event: NewReserveFactor): void {}
 
 export function handleRedeem(event: Redeem): void {}
 
-export function handleRepayBorrow(event: RepayBorrow): void {}
+export function handleRepayBorrow(event: RepayBorrow): void {
+  let market = Market.load(event.address.toHexString())
+  let accountID = event.params.borrower.toHex()
+  let account = Account.load(accountID)
+  if (account == null) {
+    createAccount(accountID)
+  }
+
+  if (market == null) {
+    market = createMarket(event.address.toHexString())
+  }
+  // Update cTokenStats common for all events, and return the stats to update unique
+  // values for each event
+  let cTokenStats = updateCommonCTokenStats(
+    market.id,
+    market.symbol,
+    accountID,
+    event.transaction.hash,
+    event.block.timestamp.toI32(),
+    event.block.number.toI32(),
+    // event.logIndex,
+  )
+
+  let repayAmountBD = event.params.repayAmount
+    .toBigDecimal()
+    .div(exponentToBigDecimal(market.underlyingDecimals))
+
+  cTokenStats.storedBorrowBalance = event.params.accountBorrows
+    .toBigDecimal()
+    .div(exponentToBigDecimal(market.underlyingDecimals))
+    .truncate(market.underlyingDecimals)
+
+  cTokenStats.accountBorrowIndex = market.borrowIndex
+  cTokenStats.totalUnderlyingRepaid = cTokenStats.totalUnderlyingRepaid.plus(
+    repayAmountBD,
+  )
+  cTokenStats.save()
+
+  let repayID = event.transaction.hash
+    .toHexString()
+    .concat('-')
+    .concat(event.transactionLogIndex.toString())
+
+  let repayAmount = event.params.repayAmount
+    .toBigDecimal()
+    .div(exponentToBigDecimal(market.underlyingDecimals))
+    .truncate(market.underlyingDecimals)
+
+  let accountBorrows = event.params.accountBorrows
+    .toBigDecimal()
+    .div(exponentToBigDecimal(market.underlyingDecimals))
+    .truncate(market.underlyingDecimals)
+
+  // TODO: create the entity
+  // let repay = new RepayEvent(repayID)
+  // repay.amount = repayAmount
+  // repay.accountBorrows = accountBorrows
+  // repay.borrower = event.params.borrower
+  // repay.blockNumber = event.block.number.toI32()
+  // repay.blockTime = event.block.timestamp.toI32()
+  // repay.underlyingSymbol = market.underlyingSymbol
+  // repay.payer = event.params.payer
+  // repay.save()
+}
 
 export function handleReservesAdded(event: ReservesAdded): void {}
 
