@@ -1,5 +1,42 @@
-subgraph: https://thegraph.com/hosted-service/subgraph/steven4354/metalend?selected=playground
+# Metalend subgraph
 
+Indexing [Metalend](https://metalend.tech/), the Axie lending protocol, using Graph Protocol
+
+[Deployed subgraph](https://thegraph.com/hosted-service/subgraph/steven4354/metalend?selected=playground)
+
+### Running locally
+
+If you'd like to see your changes before deploying to the above subgraph, you can use a local graph node: https://github.com/graphprotocol/graph-node to do so. In #Helpful notes you can see some commands to run the local graph node. Otherwise the README.md within the graph-node repo shows how to set it up.
+
+After running locally, you should see logs on the graph-node instance, to log items there, below is an example
+
+```
+import { log } from '@graphprotocol/graph-ts/index'
+log.info('STEVENDEBUG updateMarket starting', [])  
+```
+
+If you have any other questions, free to check with Steven on running these code changes and contributing to the repo
+
+### Deployment
+
+To deployment you can run the below commands to deploy your changes to the [deployed subgraph](https://thegraph.com/hosted-service/subgraph/steven4354/metalend?selected=playground)
+
+```
+cd metalend
+graph auth
+```
+
+post the access key to the subgraph (check with Steven)
+
+```
+yarn codegen
+yarn build
+yarn deploy
+```
+
+### Helpful notes & commands
+
+Local client for the graph
 https://github.com/graphprotocol/graph-node
 
 ```
@@ -46,7 +83,6 @@ graph init \
     }
 ```
 
-example:
 ```
 cargo run -p graph-node --release -- \
   --postgres-url postgresql://steven:steven@localhost:5432/graph-node \
