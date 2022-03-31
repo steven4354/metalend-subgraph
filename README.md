@@ -6,9 +6,11 @@ Indexing [Metalend](https://metalend.tech/), the Axie lending protocol, using Gr
 
 ### Running locally
 
-If you'd like to see your changes before deploying to the above subgraph, you can use a local graph node: https://github.com/graphprotocol/graph-node to do so. In #Helpful notes you can see some commands to run the local graph node. Otherwise the README.md within the graph-node repo shows how to set it up.
+If you'd like to see your changes before deploying to the above subgraph, you can clone and run the local [graph-node repo](https://github.com/graphprotocol/graph-node)
 
-After running locally, you should see logs on the graph-node instance, to log items there, below is an example
+In #Helpful notes you can see some commands to run the local graph node. Additionally, the README.md within the [graph-node repo](https://github.com/graphprotocol/graph-node) shows how to set it up to run the code here.
+
+After running locally, you should see logs on the graph-node instance. To log items there, below is an example
 
 ```
 import { log } from '@graphprotocol/graph-ts/index'
@@ -100,4 +102,112 @@ cargo run -p graph-node --release -- \
 ```
 export ETHEREUM_BLOCK_BATCH_SIZE=100
 export GRAPH_ETHEREUM_MAX_BLOCK_RANGE_SIZE=1000000
+```
+
+### Common graphql queries
+
+```
+{
+  accounts(first: 10) {
+    id
+    tokens(first: 5) {
+      id
+      symbol
+    }
+  }
+}
+```
+
+```
+{
+  markets(first: 7) {
+    borrowRate
+    cash
+    collateralFactor
+    exchangeRate
+    interestRateModelAddress
+    name
+    reserves
+    supplyRate
+    symbol
+    id
+    totalBorrows
+    totalSupply
+    underlyingAddress
+    underlyingName
+    underlyingPrice
+    underlyingSymbol
+    reserveFactor
+    underlyingPriceUSD
+  }
+}
+```
+
+```
+{
+  accountCTokens(first:100) {
+    id
+    symbol
+    cTokenBalance
+    accountBorrowIndex
+    totalUnderlyingSupplied
+    totalUnderlyingRedeemed
+    totalUnderlyingBorrowed
+    totalUnderlyingRepaid
+    storedBorrowBalance
+  }
+}
+```
+
+```
+{
+  accounts(first: 10) {
+    id
+    countLiquidated
+    tokens(first: 5) {
+      id
+      symbol
+    }
+  }
+}
+```
+
+```
+{
+  accounts(first: 10) {
+    id
+    countLiquidated
+    tokens(first: 5) {
+      id
+      symbol
+      cTokenBalance
+      accountBorrowIndex
+      totalUnderlyingSupplied
+      totalUnderlyingRedeemed
+      totalUnderlyingBorrowed
+      totalUnderlyingRepaid
+      storedBorrowBalance
+    }
+  }
+}
+```
+
+```
+{
+  accounts(id: "0x02770a07ba884f4f3ac63739fb50e75da5d19685") {
+    id
+    countLiquidated
+    tokens(first: 5) {
+      id
+      symbol
+      cTokenBalance
+      accountBorrowIndex
+      totalUnderlyingSupplied
+      totalUnderlyingRedeemed
+      totalUnderlyingBorrowed
+      totalUnderlyingRepaid
+      storedBorrowBalance
+    }
+  }
+}
 ```
