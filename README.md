@@ -158,3 +158,56 @@ export GRAPH_ETHEREUM_MAX_BLOCK_RANGE_SIZE=1000000
   }
 }
 ```
+
+```
+{
+  accounts(first: 10) {
+    id
+    countLiquidated
+    tokens(first: 5) {
+      id
+      symbol
+    }
+  }
+}
+```
+
+```
+{
+  accounts(first: 10) {
+    id
+    countLiquidated
+    tokens(first: 5) {
+      id
+      symbol
+      cTokenBalance
+      accountBorrowIndex
+      totalUnderlyingSupplied
+      totalUnderlyingRedeemed
+      totalUnderlyingBorrowed
+      totalUnderlyingRepaid
+      storedBorrowBalance
+    }
+  }
+}
+```
+
+```
+{
+  accounts(id: "0x02770a07ba884f4f3ac63739fb50e75da5d19685") {
+    id
+    countLiquidated
+    tokens(first: 5) {
+      id
+      symbol
+      cTokenBalance
+      accountBorrowIndex
+      totalUnderlyingSupplied
+      totalUnderlyingRedeemed
+      totalUnderlyingBorrowed
+      totalUnderlyingRepaid
+      storedBorrowBalance
+    }
+  }
+}
+```
