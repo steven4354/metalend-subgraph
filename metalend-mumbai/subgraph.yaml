@@ -6,7 +6,7 @@ dataSources:
     name: Comptroller
     network: mumbai
     source:
-      address: "0x1bFAA59c95084b5465C22b2Da64c2e236CdbBaaC"
+      address: "0xf7f9097ff717493E96C5a9E347caB1d6078D4179"
       abi: Comptroller
     mapping:
       kind: ethereum/events
@@ -70,7 +70,7 @@ dataSources:
     name: cAXIE
     network: mumbai
     source:
-      address: "0x764f0f637a87bB9109335e0911a790e1a541A4bf"
+      address: "0xb805c425331Ac8840367dCB809a7B10940f45d78"
       abi: cAXIE
     mapping:
       kind: ethereum/events
@@ -89,7 +89,7 @@ dataSources:
     name: cERC20
     network: mumbai
     source:
-      address: "0xc49e69d88983F466014635DF251986770A031f2b"
+      address: "0x99859578509627a66b7DEFe8Cac9B300b5F86ef9"
       abi: cERC20
     mapping:
       kind: ethereum/events
