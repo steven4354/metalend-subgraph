@@ -1,0 +1,68 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Comptroller
+    network: mumbai
+    source:
+      address: "0x1bFAA59c95084b5465C22b2Da64c2e236CdbBaaC"
+      abi: Comptroller
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Failure
+        - NewAdmin
+        - NewImplementation
+        - NewPendingAdmin
+        - NewPendingImplementation
+        - ActionPaused
+        - ActionPaused1
+        - MarketListed
+        - NewBorrowCap
+        - NewBorrowCapGuardian
+        - NewCloseFactor
+        - NewCollateralFactor
+        - NewLiquidationDiscount
+        - NewLiquidationIncentive
+        - NewPauseGuardian
+        - NewPriceOracle
+      abis:
+        - name: Comptroller
+          file: ./abis/Comptroller.json
+      eventHandlers:
+        - event: Failure(uint256,uint256,uint256)
+          handler: handleFailure
+        - event: NewAdmin(address,address)
+          handler: handleNewAdmin
+        - event: NewImplementation(address,address)
+          handler: handleNewImplementation
+        - event: NewPendingAdmin(address,address)
+          handler: handleNewPendingAdmin
+        - event: NewPendingImplementation(address,address)
+          handler: handleNewPendingImplementation
+        - event: ActionPaused(string,bool)
+          handler: handleActionPaused
+        - event: ActionPaused(address,string,bool)
+          handler: handleActionPaused1
+        - event: MarketListed(address)
+          handler: handleMarketListed
+        - event: NewBorrowCap(indexed address,uint256)
+          handler: handleNewBorrowCap
+        - event: NewBorrowCapGuardian(address,address)
+          handler: handleNewBorrowCapGuardian
+        - event: NewCloseFactor(uint256,uint256)
+          handler: handleNewCloseFactor
+        - event: NewCollateralFactor(address,uint256,uint256)
+          handler: handleNewCollateralFactor
+        - event: NewLiquidationDiscount(uint256,uint256)
+          handler: handleNewLiquidationDiscount
+        - event: NewLiquidationIncentive(uint256,uint256)
+          handler: handleNewLiquidationIncentive
+        - event: NewPauseGuardian(address,address)
+          handler: handleNewPauseGuardian
+        - event: NewPriceOracle(address,address)
+          handler: handleNewPriceOracle
+      file: ./src/mapping.ts

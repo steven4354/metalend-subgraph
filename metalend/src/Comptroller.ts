@@ -50,7 +50,13 @@ export function handleNewCloseFactor(event: NewCloseFactor): void {
   }
 }
 
+// market id should be 0xc49e69d88983f466014635df251986770a031f2b
+// but i get 0x764f0f637a87bb9109335e0911a790e1a541a4bf for event.params.cToken.toHexString()
 export function handleNewCollateralFactor(event: NewCollateralFactor): void {
+  log.info('STEVENDEBUG handleNewCollateralFactor new {}', [event.params.newCollateralFactorMantissa.toString()])  
+  log.info('STEVENDEBUG handleNewCollateralFactor old {}', [event.params.oldCollateralFactorMantissa.toString()])  
+  log.info('STEVENDEBUG handleNewCollateralFactor old {}', [event.params.cToken])  
+
   let market = Market.load(event.params.cToken.toHexString())
 
   if (market == null) {
@@ -61,6 +67,9 @@ export function handleNewCollateralFactor(event: NewCollateralFactor): void {
   market.collateralFactor = event.params.newCollateralFactorMantissa
     .toBigDecimal()
     .div(mantissaFactorBD)
+
+  log.info('STEVENDEBUG handleNewCollateralFactor market.collateralFactor {}', [market.collateralFactor.toString()])  
+
   market.save()
 }
 
