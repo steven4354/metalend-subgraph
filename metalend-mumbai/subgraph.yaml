@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: Comptroller
-    network: matic
+    network: mumbai
     source:
       address: "0x1bFAA59c95084b5465C22b2Da64c2e236CdbBaaC"
       abi: Comptroller
@@ -68,7 +68,7 @@ dataSources:
       file: ./src/Comptroller.ts
   - kind: ethereum
     name: cAXIE
-    network: matic
+    network: mumbai
     source:
       address: "0x764f0f637a87bB9109335e0911a790e1a541A4bf"
       abi: cAXIE
@@ -87,7 +87,7 @@ dataSources:
       file: ./src/cAXIE.ts
   - kind: ethereum
     name: cERC20
-    network: matic
+    network: mumbai
     source:
       address: "0xc49e69d88983F466014635DF251986770A031f2b"
       abi: cERC20
