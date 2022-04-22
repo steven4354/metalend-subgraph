@@ -119,6 +119,13 @@ cargo run -p graph-node --release -- \
 ```
 
 ```
+cargo run -p graph-node --release -- \
+  --postgres-url postgresql://postgres:postgres@localhost:5432/graph-node \
+  --ethereum-rpc mumbai:https://polygon-mumbai.g.alchemy.com/v2/lUx-q8MUt_nXtlfXTckZKhKjCsCwkMT_ \
+  --ipfs 127.0.0.1:5001
+```
+
+```
 export ETHEREUM_BLOCK_BATCH_SIZE=100
 export GRAPH_ETHEREUM_MAX_BLOCK_RANGE_SIZE=1000000
 ```
