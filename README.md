@@ -10,6 +10,17 @@ If you'd like to see your changes before deploying to the above subgraph, you ca
 
 In #Helpful notes you can see some commands to run the local graph node. Additionally, the README.md within the [graph-node repo](https://github.com/graphprotocol/graph-node) shows how to set it up to run the code here.
 
+Deploy the metalend subgraph to the local graph node:
+
+```
+# from the root
+cd metalend
+yarn
+yarn codegen
+yarn create-local
+yarn deploy-local
+```
+
 After running locally, you should see logs on the graph-node instance. To log items there, below is an example
 
 ```
@@ -47,6 +58,14 @@ graph init \
   [--network Matic ] \
   [--abi abis/Comptroller.json] \
   steven4354/metalend
+```
+
+```
+graph init \
+  --from-contract 0x1bFAA59c95084b5465C22b2Da64c2e236CdbBaaC \
+  --network Mumbai \
+  --abi abis/Comptroller.json \
+  steven4354/metalend-mumbai
 ```
 
 ```
@@ -94,8 +113,15 @@ cargo run -p graph-node --release -- \
 
 ```
 cargo run -p graph-node --release -- \
-  --postgres-url postgresql://steven:steven@localhost:5432/graph-node \
-  --ethereum-rpc matic:https://polygon-mainnet.g.alchemy.com/v2/<key-here> \
+  --postgres-url postgresql://postgres:postgres@localhost:5432/graph-node \
+  --ethereum-rpc matic:https://polygon-mainnet.g.alchemy.com/v2/bMDbsyKs9Dnba81P9uTk7v5buzxCkCas \
+  --ipfs 127.0.0.1:5001
+```
+
+```
+cargo run -p graph-node --release -- \
+  --postgres-url postgresql://postgres:postgres@localhost:5432/graph-node \
+  --ethereum-rpc mumbai:https://polygon-mumbai.g.alchemy.com/v2/lUx-q8MUt_nXtlfXTckZKhKjCsCwkMT_ \
   --ipfs 127.0.0.1:5001
 ```
 
